@@ -39,7 +39,7 @@ const dashboardSchema = new mongoose.Schema(
       required: [true, 'דשבורד חייב להכיל מספר סידורי'],
       validate: {
         validator: checkIsURL,
-        message: 'Please provide a valid email'
+        message: 'נא הזן URL תקין לדוגמה: www.example.com'
       }
     },
     includeShualCityId: {
@@ -62,13 +62,6 @@ const dashboardSchema = new mongoose.Schema(
     toObject: { virtuals: true }
   }
 );
-
-// dashboardSchema.index({ order: 1, departmentId: 1 }, { unique: true });
-
-// dashboardSchema.pre(/^find/, function(next) {
-//   this.populate({ path: 'departmentId', select: 'name' });
-//   next();
-// });
 
 const Dashboard = mongoose.model('Dashboard', dashboardSchema);
 
