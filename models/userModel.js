@@ -7,14 +7,14 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Please tell us your name!']
+      required: [true, 'חובה להזין שם משתמש']
     },
     email: {
       type: String,
-      required: [true, 'Please provide your email'],
+      required: [true, 'חובה להזין כתובת אימייל של המשתמש'],
       unique: true,
       lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email']
+      validate: [validator.isEmail, 'חובה להזין כתובת אימייל תקנית']
     },
     photo: { type: String, default: 'default.jpg' },
     role: {
@@ -24,19 +24,19 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
+      required: [true, 'חובה להזין סיסמה'],
       minlength: 8,
       select: false
     },
     passwordConfirm: {
       type: String,
-      required: [true, 'Please confirm your password'],
+      required: [true, 'חובה להזין אישור סיסמה'],
       validate: {
         // This only works on CREATE and SAVE!!!
         validator: function(el) {
           return el === this.password;
         },
-        message: 'Passwords are not the same!'
+        message: 'הסיסמאות אינם זהות!'
       }
     },
     passwordChangedAt: Date,
