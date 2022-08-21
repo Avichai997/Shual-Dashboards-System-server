@@ -11,7 +11,10 @@ class APIFeatures {
 
     // 1B) Advanced filtering
     let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+    queryStr = queryStr
+      .replace(/\b(gte|gt|lte|lt|in|nin)\b/g, match => `$${match}`)
+      // allow filter for: $in: [num1, num2, ...] OR $nin: [etc...]
+      .replace(/("\[|\]")/g, match => `${match.replace('"', '')}`);
 
     this.query = this.query.find(JSON.parse(queryStr));
 
