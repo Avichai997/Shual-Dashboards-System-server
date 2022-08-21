@@ -4,11 +4,11 @@ const typeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'A type must have a name'],
+      required: [true, 'סוג לקוח חייב להכיל שם'],
       unique: true,
       trim: true,
-      maxlength: [40, 'A type name must have less or equal then 40 characters'],
-      minlength: [3, 'A type name must have more or equal then 3 characters']
+      maxlength: [40, 'שם סוג הלקוח חייב להיות באורך של 40 תווים לכל היותר'],
+      minlength: [3, 'שם סוג הלקוח חייב להיות באורך של 3 תווים לפחות']
     }
   },
   {
