@@ -81,7 +81,7 @@ app.use((req, res, next) => {
 // 2) ROUTES
 app.use('/api/users', userRouter);
 app.use('/api/types', typeRouter);
-app.use('/api/dashbords', dashboardRouter);
+app.use('/api/dashboards', dashboardRouter);
 app.use('/api/customers', customerRouter);
 
 app.all('*', (req, res, next) => {
