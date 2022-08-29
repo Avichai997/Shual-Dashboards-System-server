@@ -42,12 +42,16 @@ style.
   .content {
     box-sizing: border-box;
     display: flex;
+    flex-direction: column !important;
     margin: auto;
     max-width: 580px;
     padding: 10px;
     flex-wrap: wrap;
     align-content: center;
     justify-content: center; 
+  }
+  .container .content {
+    flex-direction: column !important;
   }
   .main {
     background: #ffffff;
