@@ -26,7 +26,7 @@ const app = express();
 app.use(cors());
 app.options('*', cors());
 
-// Serving static files
+// Serving static files example: https://localhost:5000/img/users/usrename.jpeg
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
