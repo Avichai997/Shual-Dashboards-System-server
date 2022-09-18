@@ -3,7 +3,7 @@ const factory = require('./handlerFactory');
 
 exports.setCustomerUserIds = (req, res, next) => {
   // Allow nested routes
-  if (!req.body.customer) req.body.customer = req.params.typeId;
+  if (!req.body.customer) req.body.customer = req.params.customerTypeId;
   if (!req.body.user) req.body.user = req.user.id;
   next();
 };

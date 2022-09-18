@@ -7,10 +7,10 @@ const router = express.Router();
 
 // router.param('id', typeController.checkID);
 
-// POST /type/:typeId/links
-// GET /type/:typeId/links
+// POST /type/:customerTypeId/links
+// GET /type/:customerTypeId/links
 
-router.use('/:typeId/links', customerRouter);
+router.use('/:customerTypeId/links', customerRouter);
 
 router
   .route('/')

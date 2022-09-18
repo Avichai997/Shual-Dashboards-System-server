@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const customerSchema = new mongoose.Schema(
   {
-    typeId: {
+    customerTypeId: {
       type: mongoose.Schema.ObjectId,
       ref: 'Type',
       required: [true, 'לקוח חייב להיות מקושר לסוג לקוח']

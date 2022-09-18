@@ -21,7 +21,7 @@ const typeSchema = new mongoose.Schema(
 // virtual populate links in type
 typeSchema.virtual('customers', {
   ref: 'Customer',
-  foreignField: 'typeId',
+  foreignField: 'customerTypeId',
   localField: '_id'
 });
 
