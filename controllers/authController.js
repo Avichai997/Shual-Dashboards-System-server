@@ -6,17 +6,20 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
 
-const signToken = id => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+const signToken = id =>
+  jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
   });
-};
+
+const getTokenExpiration = () =>
+  new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000);
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
+  const tokenExpiration = getTokenExpiration();
 
   res.cookie('token', token, {
-    expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+    expires: tokenExpiration,
     httpOnly: true,
     secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
   });
@@ -27,9 +30,8 @@ const createSendToken = (user, statusCode, req, res) => {
   res.status(statusCode).json({
     status: 'success',
     token,
-    data: {
-      user
-    }
+    tokenExpiration,
+    data: { user }
   });
 };
 
