@@ -75,6 +75,10 @@ exports.logout = (req, res) => {
   res.status(200).json({ status: 'success', token: null });
 };
 
+exports.csrfToken = (req, res) => {
+  res.status(200).json({ status: 'success', data: { csrfToken: req.csrfToken() } });
+};
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
   let token;

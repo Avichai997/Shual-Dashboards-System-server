@@ -9,6 +9,7 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
+const csrf = require('csurf');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -23,7 +24,7 @@ const app = express();
 // 1) GLOBAL MIDDLEWARES
 
 // Implement CORS
-app.use(cors());
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.options('*', cors());
 
 // Serving static files example: https://localhost:5000/img/users/usrename.jpeg
@@ -45,10 +46,17 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 app.use(cookieParser());
+
+// ProtectAgainst csrf
+const csrfProtection = csrf({
+  cookie: true
+});
+app.use(csrfProtection);
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
