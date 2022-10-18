@@ -24,7 +24,16 @@ const app = express();
 // 1) GLOBAL MIDDLEWARES
 
 // Implement CORS
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+const whitelist = ['http://localhost:3000', 'http://localhost:8080'];
+const corsOptions = {
+  credentials: true, // allow coockies
+  origin: (origin, callback) =>
+    // (!origin) to allow Postman requests that comes without origin
+    !origin || whitelist.indexOf(origin) !== -1
+      ? callback(null, true) // allow request
+      : callback(new AppError(`Origin: ${origin} Not allowed by CORS`)) // deny request
+};
+app.use(cors(corsOptions));
 app.options('*', cors());
 
 // Serving static files example: https://localhost:5000/img/users/usrename.jpeg
@@ -45,7 +54,6 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again in an hour!'
 });
 app.use('/api', limiter);
-
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '100kb' }));
@@ -68,16 +76,44 @@ app.use(xss());
 app.use(
   hpp({
     whitelist: [
-      // 'duration',
-      // 'ratingsQuantity',
-      // 'ratingsAverage',
-      // 'maxGroupSize',
-      // 'difficulty',
-      // 'price'
+      // All Models
+      'id',
+      '_id',
+      'createdAt',
+      'updatedAt',
+      // User Model
+      'name',
+      'email',
+      'photo',
+      'role',
+      'password',
+      'passwordConfirm',
+      'passwordChangedAt',
+      'passwordResetToken',
+      'passwordResetExpires',
+      'active',
+      // Customer Model
+      'customerTypeId',
+      'shualCityId',
+      'lamas',
+      'isTraining',
+      'isEnabled',
+      'logo',
+      'location',
+      // Dashboard Model
+      'order',
+      'name',
+      'url',
+      'includeShualCityId',
+      'excludeShualCityId',
+      'customerTypeId',
+      // Type Model
+      'name'
     ]
   })
 );
 
+// compress requests size
 app.use(compression());
 
 // Test middleware
