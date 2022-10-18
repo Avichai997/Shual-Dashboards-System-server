@@ -52,30 +52,5 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  },
-  "bundleDependencies": [
-    "bcryptjs",
-    "compression",
-    "cookie-parser",
-    "cors",
-    "dotenv",
-    "express",
-    "express-mongo-sanitize",
-    "express-rate-limit",
-    "helmet",
-    "hpp",
-    "html-to-text",
-    "jsonwebtoken",
-    "mongoose",
-    "morgan",
-    "multer",
-    "ndb",
-    "nodemailer",
-    "nodemon",
-    "pug",
-    "sharp",
-    "slugify",
-    "validator",
-    "xss-clean"
-  ]
+  }
 }
